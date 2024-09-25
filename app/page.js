@@ -1,101 +1,131 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+import SearchBar from "./components/SearchBar";
+import VideoGrid from "./components/VideoGrid";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const videoData = [
+    {
+      id: "sDrd9rzLIRM",
+      title: "React Tutorial for Beginners",
+      description:
+        "Thunderbolts* is an upcoming American superhero film based on the Marvel Comics team Thunderbolts. Produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures, it is intended to be the 36th film in the Marvel Cinematic Universe.",
+      thumbnail:
+        "https://i.ytimg.com/vi/v-94Snw-H4o/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAlm78be2GpG8BW-4PUnBmxWcN5cg",
+      channel: "Marvel Entertainment",
+      views: "9.3M",
+      uploadedAt: "2 hours ago",
+    },
+    {
+      id: "gCzLh_QdyRk",
+      title:
+        "MERN Stack Project | Build a Full Stack Auction Platform With MongoDB, Express, React, Node.js",
+      description:
+        "Learn how to build a complete Auction Platform from scratch using the MERN stack (MongoDB, Express, React, Node.js). This tutorial covers everything you need to create a fully functional and responsive auction website. You'll learn how to manage bids, handle user authentication, implement a dashboard, and automate tasks such as payment verification using advanced MongoDB features. Perfect for web developers looking to enhance their skills in full-stack development with hands-on experience in a real-world project. Don’t forget to like, subscribe, and hit the notification bell for more MERN stack tutorials!",
+      thumbnail: "https://i.ytimg.com/vi/gCzLh_QdyRk/maxresdefault.jpg",
+      channel: "CodeWithZeeshu",
+      views: "7.1k",
+      uploadedAt: "Sep 4, 2024",
+    },
+    {
+      id: "9OGhwqWQ8fI",
+      title:
+        "MERN Stack Project: Build a Full Stack Hospital Management System with React, Node, MongoDB, Express",
+      description:
+        "🚀 Welcome to CodeWithZeeshu! In this comprehensive tutorial, I'll guide you through the creation of a dynamic MERN Stack hospital management system from scratch. Learn how to leverage MongoDB, Express.js, React, and Node.js to build a powerful platform for patients and admins alike. Follow along step-by-step as we cover everything from setting up the backend server to designing a user-friendly frontend interface. Whether you're a beginner or an experienced developer, this project will equip you with the skills to create your own professional-grade hospital management system. Subscribe now and let's dive into the world of MERN Stack development together!",
+      thumbnail: "https://i.ytimg.com/vi/9OGhwqWQ8fI/maxresdefault.jpg",
+      channel: "CodeWithZeeshu",
+      views: "147k",
+      uploadedAt: "July 23, 2024",
+    },
+    {
+      id: "3omr6Zqzwt0",
+      title:
+        "MERN Stack Project: Building Job Portal with React, Node, MongoDB, Express, Redux and Redux-Toolkit",
+      description:
+        "Welcome to my latest tutorial on building a feature-rich MERN stack job portal! In this video, we'll dive deep into creating a job portal application with advanced features like automated newsletters using Node Cron, user profile management, job posting, and more.",
+      thumbnail:
+        "https://i.ytimg.com/vi/3omr6Zqzwt0/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD2FAfxS5Vgbeqjr91qnJ1F7ocfbg",
+      channel: "Marvel Entertainment",
+      views: "9.3M",
+      uploadedAt: "2 hours ago",
+    },
+    {
+      id: "A5_OCuXZaao",
+      title: "Squid Game: Season 2 | Special Teaser | Netflix",
+      description:
+        "Three years after winning Squid Game, Player 456 gave up going to the states and comes back with a new resolution in his mind. Gi-hun once again dives into the mysterious survival game, starting another life-or-death game with new participants gathered to win the prize of 45.6 billion won. Director Hwang Dong-hyuk, who made history at the 74th Primetime Emmys® becoming the first Asian to win Outstanding Directing for a Drama Series, once again helms the series as director, writer, and producer. Lee Jung-jae, Lee Byung-hun, Wi Ha-jun, and Gong Yoo reprise their roles from Season 1 with an impeccable list of new cast members including Yim Si-wan, Kang Ha-neul, Park Gyu-young, Lee Jin-uk, Park Sung-hoon, Yang Dong-geun, Kang Ae-sim, Lee David, Choi Seung-hyun, Roh Jae-won, Jo Yu-ri, and Won Ji-an rounding out the ensemble of colorful characters in the new season.",
+      thumbnail:
+        "https://i.ytimg.com/vi/1GqzyjUbT4c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBraKNA5LjNBXKnSFWGqFLDYMGKBQ",
+      channel: "Netflix",
+      views: "9.3M",
+      uploadedAt: "2 hours ago",
+    },
+    {
+      id: "wuND4V_062Q",
+      title:
+        "Complete Backend Mastery In One Video | With MERN ProjectReact Tutorial for Beginners",
+      description:
+        "Hey, are you a beginner? Don't know backend? Don't worry, I'm here to teach you the backend essentials with Node.js and Express.js from scratch!",
+      thumbnail: "https://i.ytimg.com/vi/wuND4V_062Q/maxresdefault.jpg",
+      channel: "CodeWithZeeshu",
+      views: "5.5k",
+      uploadedAt: "June 6, 2024",
+    },
+    {
+      id: "K5KAc5CoCuk",
+      title: "Indila - Dernière Danse (Clip Officiel)",
+      description: "A famous song with billions of views.",
+      thumbnail: "https://i.ytimg.com/vi/K5KAc5CoCuk/maxresdefault.jpg",
+      channel: "Indila",
+      views: "1.1B",
+      uploadedAt: "10 years ago",
+    },
+    {
+      id: "V1Pl8CzNzCw",
+      title: "Billie Eilish, Khalid - lovely",
+      description: "Directed by Matty Peacock and Taylor Cohen",
+      thumbnail: "https://i.ytimg.com/vi/V1Pl8CzNzCw/maxresdefault.jpg",
+      channel: "Billie Eilish",
+      views: "2.1B",
+      uploadedAt: "6 years ago",
+    },
+    {
+      id: "awkkyBH2zEo",
+      title: "LISA - 'LALISA' M/V",
+      description: "내 뒷모습만 봐도 알잖아",
+      thumbnail: "https://i.ytimg.com/vi/awkkyBH2zEo/maxresdefault.jpg",
+      channel: "BLACKPINK",
+      views: "720M",
+      uploadedAt: "3 years ago",
+    },
+    {
+      id: "5dWeeUIZFgA",
+      title: "Khaled - C'Est La Vie",
+      description: "Khaled",
+      thumbnail: "https://i.ytimg.com/vi/5dWeeUIZFgA/sddefault.jpg",
+      channel: "Khaled",
+      views: "462M",
+      uploadedAt: "12 years ago",
+    },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  const [videos, setVideos] = useState(videoData);
+  const [searchResults, setSearchResults] = useState(videos);
+
+  const handleSearch = (query) => {
+    const results = videos.filter((video) =>
+      video.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(results);
+  };
+
+  return <>
+    <div>
+      <div className="container mx-auto p-4">
+        <SearchBar handleSearch={handleSearch}/>
+        <VideoGrid videos={searchResults}/>
+      </div>
     </div>
-  );
+  </>;
 }
